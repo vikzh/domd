@@ -130,3 +130,21 @@ check:
   l-avg([list: 1, 2 ,3]) is 2
   l-avg([list: 1, 1]) is 1
 end
+
+
+fun l-uniq(l):
+  cases (List) l:
+    | empty => empty
+    | link(f, r) =>
+      if r.member(f):
+        l-uniq(r)
+      else:
+        link(f, l-uniq(r))
+      end
+  end
+end
+
+check:
+  l-uniq([list: 1, 2, 3]) is [list: 1, 2, 3]
+  l-uniq([list: 1, 1, 4, 5, 4]) is [list: 1, 5, 4]
+end
